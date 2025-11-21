@@ -8,3 +8,7 @@
 * Rewrite bespoke OSA commands as OSA scripts
 * Refactor out the make_executable/etc commands into lib
 * Read from JSON input files for inputs
+
+
+rename them to macos-*
+justfile
