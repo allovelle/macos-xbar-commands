@@ -26,7 +26,7 @@ fn main() -> Result<(), Error>
 
         if cmd == "install"
         {
-            fs::write(path, include_str!("toggle-dock.sh"))?;
+            fs::write(path, include_str!("toggle-dark-mode.sh"))?;
             make_executable(path)?;
             println!("Installed script\nRefreshing plugins...");
             return refresh_xbar_plugins().map_err(Into::into);
