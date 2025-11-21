@@ -41,7 +41,7 @@ fn main() -> Result<(), Error>
         }
         else
         {
-            let pkg = env!("CARGO_PKG_NAME");
+            let pkg = env!("CARGO_BIN_NAME");
             return Ok(println!("Usage: {} [install | uninstall]", pkg));
         }
     }

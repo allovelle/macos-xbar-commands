@@ -1,3 +1,5 @@
+#![allow(clippy::unit_arg)]
+
 #[cfg(not(target_os = "macos"))]
 const CRATE_MACOS_ONLY: () = panic!("Crate uses osascript which is MacOS only");
 
@@ -19,7 +21,7 @@ pub enum Error
 
 fn main() -> Result<(), Error>
 {
-    if let Some(cmd) = env::args().skip(1).next()
+    if let Some(cmd) = env::args().nth(1)
     {
         let path = &std::path::Path::new("/Users")
             .join(env::var("USER").or(env::var("LOGNAME"))?)
@@ -28,7 +30,7 @@ fn main() -> Result<(), Error>
 
         if cmd == "install"
         {
-            fs::write(&path, include_str!("toggle-natural-scrolling.sh"))?;
+            fs::write(path, include_str!("toggle-natural-scrolling.sh"))?;
             make_executable(path)?;
             println!("Installed script\nRefreshing plugins...");
             return refresh_xbar_plugins().map_err(Into::into);
@@ -41,7 +43,7 @@ fn main() -> Result<(), Error>
         }
         else
         {
-            return Ok(println!("Usage: {} [install]", env!("CARGO_PKG_NAME")));
+            return Ok(println!("Usage: {} [install]", env!("CARGO_BIN_NAME")));
         }
     }
 
@@ -75,10 +77,10 @@ fn make_executable(path: &path::Path) -> Result<(), io::Error>
 
 fn refresh_xbar_plugins() -> Result<(), std::io::Error>
 {
-    return Command::new("open")
+    Command::new("open")
         .arg("xbar://app.xbarapp.com/refreshAllPlugins")
         .status()
-        .map(drop);
+        .map(drop)
 }
 
 impl From<io::Error> for Error

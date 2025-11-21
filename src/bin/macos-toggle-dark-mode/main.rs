@@ -3,9 +3,28 @@
 #[cfg(not(target_os = "macos"))]
 const CRATE_MACOS_ONLY: () = panic!("Crate works only on MacOS");
 
+use clap::{Parser, Subcommand};
 use std::os::unix::fs::PermissionsExt;
 use std::process::{self, Command};
-use std::{collections::HashMap, env, fs, io, path, str};
+use std::{env, fs, io, path, str};
+
+#[derive(Parser)]
+#[command(name = "macos-toggle-dark-mode")]
+#[command(about = "Tiny CLI for setting light/auto/dark mode on MacOS")]
+struct Cli
+{
+    #[command(subcommand)]
+    command: Commands,
+}
+
+#[derive(Subcommand)]
+enum Commands
+{
+    Install,
+    Uninstall,
+    LightMode,
+    DarkMode,
+}
 
 #[derive(Debug)]
 pub enum Error
@@ -17,55 +36,50 @@ pub enum Error
 
 fn main() -> Result<(), Error>
 {
-    if let Some(cmd) = env::args().nth(1)
-    {
-        let path = &std::path::Path::new("/Users")
-            .join(env::var("USER").or(env::var("LOGNAME"))?)
-            .join("Library/Application Support/xbar/plugins")
-            .join("toggle-dock.1m.sh");
+    let cli = Cli::parse();
+    let xbar_script_path = &std::path::Path::new("/Users")
+        .join(env::var("USER").or(env::var("LOGNAME"))?)
+        .join("Library/Application Support/xbar/plugins")
+        .join("toggle-dark-mode.1m.sh");
 
-        if cmd == "install"
+    match cli.command
+    {
+        Commands::Install =>
         {
-            fs::write(path, include_str!("toggle-dark-mode.sh"))?;
-            make_executable(path)?;
+            fs::write(xbar_script_path, include_str!("toggle-dark-mode.sh"))?;
+            make_executable(xbar_script_path)?;
             println!("Installed script\nRefreshing plugins...");
             return refresh_xbar_plugins().map_err(Into::into);
         }
-        else if cmd == "uninstall"
+        Commands::Uninstall =>
         {
-            fs::remove_file(path)?;
+            fs::remove_file(xbar_script_path)?;
             println!("Uninstalled script\nRefreshing plugins...");
             return refresh_xbar_plugins().map_err(Into::into);
         }
-        else
+        Commands::LightMode =>
         {
-            let pkg = env!("CARGO_PKG_NAME");
-            return Ok(println!("Usage: {} [install | uninstall]", pkg));
+            let command = &[
+                "osascript",
+                "-e",
+                "tell application \"System Events\" to tell appearance preferences to set dark mode to false",
+            ];
+            run_command(command)?;
+            println!("Switched to light mode.")
+        }
+        Commands::DarkMode =>
+        {
+            let command = &[
+                "osascript",
+                "-e",
+                "tell application \"System Events\" to tell appearance preferences to set dark mode to true",
+            ];
+            run_command(command)?;
+            println!("Switched to dark mode.")
         }
     }
 
-    let command = &["defaults", "read", "com.apple.dock", "autohide"];
-
-    let is_hidden_output = &run_command(command)?.stdout;
-    let bools = HashMap::from([("0", false), ("1", true)]);
-    let autohide_enabled: bool =
-        bools[String::from_utf8_lossy(is_hidden_output).trim()];
-    let toggled = (!autohide_enabled).to_string();
-
-    let commands = [
-        &["defaults", "write", "com.apple.dock", "autohide", "-bool", &toggled],
-        &["killall", "Dock"][..],
-    ];
-
-    for command in commands
-    {
-        if !run_command(command)?.status.success()
-        {
-            return Err(Error::Msg("Something went wrong"));
-        }
-    }
-
-    Ok(println!("Successfully toggled Dock"))
+    Ok(println!("Successfully altered theme"))
 }
 
 fn make_executable(path: &path::Path) -> Result<(), io::Error>

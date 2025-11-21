@@ -10,5 +10,4 @@
 * Read from JSON input files for inputs
 
 
-rename them to macos-*
 justfile
