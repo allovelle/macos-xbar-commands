@@ -7,14 +7,22 @@ use std::num;
 use std::os::unix::fs::PermissionsExt;
 use std::process::{self, Command};
 use std::{collections::HashMap, env, fs, io, path, str};
+use thiserror::Error;
 
-#[derive(Debug)]
+#[derive(Debug, Error)]
 pub enum Error
 {
+    #[error("{0}")]
     Msg(&'static str),
-    Io(io::Error),
-    Var(env::VarError),
-    Parse(num::ParseIntError),
+
+    #[error("Number parse error: {0}")]
+    Parse(#[from] num::ParseIntError),
+
+    #[error("I/O error: {0}")]
+    Io(#[from] io::Error),
+
+    #[error("Environment variable error: {0}")]
+    Var(#[from] env::VarError),
 }
 
 fn main() -> Result<(), Error>
@@ -86,22 +94,4 @@ fn refresh_xbar_plugins() -> Result<(), std::io::Error>
 fn run_command(cli: &[&str]) -> Result<process::Output, io::Error>
 {
     Command::new(cli[0]).args(&cli[1 ..]).output()
-}
-
-impl From<io::Error> for Error
-{
-    #[rustfmt::skip]
-    fn from(value: io::Error) -> Self { Self::Io(value) }
-}
-
-impl From<env::VarError> for Error
-{
-    #[rustfmt::skip]
-    fn from(value: env::VarError) -> Self { Self::Var(value) }
-}
-
-impl From<num::ParseIntError> for Error
-{
-    #[rustfmt::skip]
-    fn from(value: num::ParseIntError) -> Self { Self::Parse(value) }
 }
