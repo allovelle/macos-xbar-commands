@@ -59,6 +59,7 @@ fn main() -> Result<(), Error>
     let command_output = &run_command(command)?.stdout;
     let current_setting: usize =
         String::from_utf8_lossy(command_output).trim().parse()?;
+    // TODO: Take these values from the vars in the xbar script
     let toggle = HashMap::from([(36, "48"), (48, "36")]);
     let value = toggle[&current_setting];
 

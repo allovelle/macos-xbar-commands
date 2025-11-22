@@ -5,26 +5,20 @@
 # <xbar.author.github>allovelle</xbar.author.github>
 # <xbar.version>0.1.0</xbar.version>
 # <xbar.dependencies>bash</xbar.dependencies>
-# <xbar.image>https://github.com/allovelle/macos-xbar-commands/raw/main/src/bin/toggle-dock/Screenshot.png</xbar.image>
+# <xbar.image>https://github.com/allovelle/macos-xbar-commands/raw/main/src/bin/macos-toggle-dock/Screenshot.png</xbar.image>
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# Detect current mode
-IS_DARK=$(defaults read -g AppleInterfaceStyle 2>/dev/null)
-AUTO=$(defaults read -g AppleInterfaceStyleSwitchesAutomatically 2>/dev/null)
-
 # More Emojis: https://gist.github.com/rxaviers/7360908
-if [[ "$AUTO" == "1" ]]; then
-    ICON="🌓"
-elif [[ "$IS_DARK" == "Dark" ]]; then
-    ICON="🌑"
+if [[ "$XBARDarkMode" == "true" ]]; then
+    # 🌑
+    echo ":new_moon:"
 else
-    ICON="🌕"
+    # 🌕
+    echo ":full_moon:"
 fi
 
-echo "$ICON"
 echo "---"
 
-echo "🌕 Light Mode | shell='$(which macos-toggle-dark-mode) light-mode'"
-echo "🌓 Auto Mode | shell='$(which macos-toggle-dark-mode) auto-mode'"
-echo "🌑 Dark Mode | shell='$(which macos-toggle-dark-mode) dark-mode'"
+echo "🌕 Light Mode | shell='$(which macos-toggle-dark-mode)' param1=light-mode terminal=false refresh=true"
+echo "🌑 Dark Mode | shell='$(which macos-toggle-dark-mode)' param1=dark-mode terminal=false refresh=true"

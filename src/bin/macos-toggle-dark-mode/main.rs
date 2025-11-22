@@ -48,7 +48,7 @@ fn main() -> Result<(), Error>
         .join("Library/Application Support/xbar/plugins")
         .join("toggle-dark-mode.1m.sh");
 
-    match cli.command
+    let dark_mode_enable = match cli.command
     {
         Commands::Install =>
         {
@@ -63,27 +63,19 @@ fn main() -> Result<(), Error>
             println!("Uninstalled script\nRefreshing plugins...");
             return refresh_xbar_plugins().map_err(Into::into);
         }
-        Commands::LightMode =>
-        {
-            let command = &[
-                "osascript",
-                "-e",
-                "tell application \"System Events\" to tell appearance preferences to set dark mode to false",
-            ];
-            run_command(command)?;
-            println!("Switched to light mode.")
-        }
-        Commands::DarkMode =>
-        {
-            let command = &[
-                "osascript",
-                "-e",
-                "tell application \"System Events\" to tell appearance preferences to set dark mode to true",
-            ];
-            run_command(command)?;
-            println!("Switched to dark mode.")
-        }
-    }
+        Commands::LightMode => "false",
+        Commands::DarkMode => "true",
+    };
+
+    let command = &[
+        "osascript",
+        "-e",
+        &format!(
+            "tell application \"System Events\" to tell appearance preferences to set dark mode to {}",
+            dark_mode_enable
+        ),
+    ];
+    run_command(command)?;
 
     Ok(println!("Successfully altered theme"))
 }

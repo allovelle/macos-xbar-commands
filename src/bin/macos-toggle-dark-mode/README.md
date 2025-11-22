@@ -1,14 +1,18 @@
-# macos-toggle-dock
-> CLI utility to toggle dock hiding along with an installable Xbar plugin.
+# macos-toggle-dark-mode
 
-> Toggling the dock only works on MacOS ⚠️
+> CLI utility to toggle dark mode along with an installable Xbar plugin.
+
+> Toggling the system theme only works on MacOS ⚠️
 
 ![Screenshot](Screenshot.png)
 
 Installation:
 
 ```bash
-$ cargo install --git https://github.com/allovelle/macos-toggle-dock
+$ cargo install --git https://github.com/allovelle/macos-xbar-commands
+$ macos-toggle-dark-mode dark-mode  # Dark mode
+$ macos-toggle-dark-mode light-mode  # Light mode
+$ macos-toggle-dark-mode install  # Xbar plugin
 ```
 
 For convenience, use this [Xbar](https://xbarapp.com) script to put a clickable icon in the menu
@@ -19,17 +23,17 @@ bar:
 
 export PATH="$HOME/.cargo/bin:$PATH"
 
-echo ':peach:'  # More Emojis: https://gist.github.com/rxaviers/7360908
+echo ':full_moon:'  # More Emojis: https://gist.github.com/rxaviers/7360908
 echo '---'
-echo "Toggle Dock | shell='$(which macos-toggle-dock)'"
+echo "Toggle Dark Mode | shell='$(which macos-toggle-dark-mode)'"
 ```
 
 Put the Xbar script in `~/Library/Application\ Support/xbar/plugins` and don't
-forget to make it executable with `chmod +x toggle-hide-dock.sh`.
+forget to make it executable with `chmod +x toggle-dark-mode.1m.sh`.
 
 For convenience, this crate adds a CLI command to do this automatically:
 
 ```bash
-$ macos-toggle-dock install
-$ macos-toggle-dock uninstall
+$ macos-toggle-dark-mode install
+$ macos-toggle-dark-mode uninstall
 ```
