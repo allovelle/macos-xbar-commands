@@ -31,3 +31,27 @@ For convenience, this crate adds a CLI command to do this automatically:
 ```bash
 $ macos-natural-scrolling install
 ```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+Info.plist
+Main.m
+ProcUtil.h
+ProcUtil.m
+README.md
+Retry.h
+Retry.m
+UiUtil.h
+UiUtil.m
+build.sh

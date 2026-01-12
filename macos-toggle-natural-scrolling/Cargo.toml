@@ -2,9 +2,16 @@
 name = "macos-natural-scrolling"
 version = "0.1.0"
 edition = "2021"
+# build = "build.rs"
+
+[build-dependencies]
+cc = "1.0"
 
 [package.metadata]
 include = ["src/toggle-natural-scrolling.scpt"]
 
 [target.'cfg(target_os = "macos")'.dependencies]
-tempfile = "3.10.1"
+tempfile = "3.23.0"
+
+[dependencies]
+thiserror = "2.0.17"
