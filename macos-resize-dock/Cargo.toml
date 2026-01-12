@@ -1,0 +1,10 @@
+[package]
+name = "macos-resize-dock"
+version = "0.1.0"
+edition = "2021"
+
+[package.metadata]
+include = ["resize-dock.sh"]
+
+[dependencies]
+thiserror = "2.0.17"
