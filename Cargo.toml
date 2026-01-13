@@ -9,7 +9,7 @@ members = [
     "macos-toggle-dark-mode",
     "macos-toggle-dock",
     "macos-toggle-natural-scrolling",
-    # "macos-invert-natural-scrolling",
+    "macos-invert-natural-scrolling",
 ]
 
 [dependencies]
