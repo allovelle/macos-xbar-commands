@@ -36,6 +36,10 @@ $ macos-natural-scrolling install
 
 
 
+# https://github.com/liuqx0717/ToggleNaturalScrolling
+
+https://github.com/liuqx0717/ToggleNaturalScrolling
+
 
 
 
