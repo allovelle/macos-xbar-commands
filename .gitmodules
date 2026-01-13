@@ -1,0 +1,3 @@
+[submodule "macos-toggle-natural-scrolling/objc"]
+	path = macos-toggle-natural-scrolling/objc
+	url = https://github.com/liuqx0717/ToggleNaturalScrolling.git
