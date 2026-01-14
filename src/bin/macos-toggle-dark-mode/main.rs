@@ -43,7 +43,7 @@ pub enum Error
 fn main() -> Result<(), Error>
 {
     let cli = Cli::parse();
-    let xbar_script_path = &std::path::Path::new("/Users")
+    let path = &std::path::Path::new("/Users")
         .join(env::var("USER").or(env::var("LOGNAME"))?)
         .join("Library/Application Support/xbar/plugins")
         .join("toggle-dark-mode.1m.sh");
@@ -52,14 +52,14 @@ fn main() -> Result<(), Error>
     {
         Commands::Install =>
         {
-            fs::write(xbar_script_path, include_str!("toggle-dark-mode.sh"))?;
-            make_executable(xbar_script_path)?;
-            println!("Installed script\nRefreshing plugins...");
+            fs::write(path, include_str!("toggle-dark-mode.sh"))?;
+            make_executable(path)?;
+            println!("Installed script to {path:?}\nRefreshing plugins...");
             return refresh_xbar_plugins().map_err(Into::into);
         }
         Commands::Uninstall =>
         {
-            fs::remove_file(xbar_script_path)?;
+            fs::remove_file(path)?;
             println!("Uninstalled script\nRefreshing plugins...");
             return refresh_xbar_plugins().map_err(Into::into);
         }

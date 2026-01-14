@@ -34,13 +34,13 @@ fn main() -> Result<(), Error>
         {
             fs::write(path, include_str!("toggle-dock.sh"))?;
             make_executable(path)?;
-            println!("Installed script\nRefreshing plugins...");
+            println!("Installed script to {path:?}\nRefreshing plugins...");
             return refresh_xbar_plugins().map_err(Into::into);
         }
         else if cmd == "uninstall"
         {
             fs::remove_file(path)?;
-            println!("Uninstalled script\nRefreshing plugins...");
+            println!("Uninstalled script from {path:?}\nRefreshing plugins...");
             return refresh_xbar_plugins().map_err(Into::into);
         }
         else
