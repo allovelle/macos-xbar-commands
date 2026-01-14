@@ -211,16 +211,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "macos-xbar-commands"
-version = "0.1.0"
-dependencies = [
- "macos-resize-dock",
- "macos-toggle-dark-mode",
- "macos-toggle-dock",
- "macos-toggle-natural-scrolling",
-]
-
-[[package]]
 name = "once_cell"
 version = "1.21.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -366,3 +356,10 @@ name = "wit-bindgen"
 version = "0.46.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f17a85883d4e6d00e8a97c586de764dabcc06133f7f1d55dce5cdc070ad7fe59"
+
+[[package]]
+name = "xbar-all-cmds"
+version = "0.1.0"
+dependencies = [
+ "macos-toggle-natural-scrolling",
+]

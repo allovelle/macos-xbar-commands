@@ -1,0 +1,26 @@
+[package]
+name = "xbar-all-cmds"
+version = "0.1.0"
+edition = "2024"
+
+[dependencies]
+# macos-toggle-dark-mode = { path = "../macos-toggle-dark-mode" }
+# macos-toggle-dock = { path = "../macos-toggle-dock" }
+# macos-resize-dock = { path = "../macos-resize-dock" }
+macos-toggle-natural-scrolling = { path = "../macos-toggle-natural-scrolling" }
+
+# [[bin]]
+# name = "macos-toggle-dark-mode"
+# path = "../macos-toggle-dark-mode/src/main.rs"
+
+# [[bin]]
+# name = "macos-toggle-dock"
+# path = "../macos-toggle-dock/src/main.rs"
+
+# [[bin]]
+# name = "macos-resize-dock"
+# path = "../macos-resize-dock/src/main.rs"
+
+[[bin]]
+name = "macos-toggle-natural-scrolling"
+path = "../macos-toggle-natural-scrolling/src/main.rs"

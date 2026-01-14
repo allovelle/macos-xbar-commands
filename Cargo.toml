@@ -1,34 +1,9 @@
-[package]
-name = "macos-xbar-commands"
-version = "0.1.0"
-edition = "2024"
-
 [workspace]
+resolver = "2"
 members = [
+    "xbar-all-cmds",
     "macos-resize-dock",
     "macos-toggle-dark-mode",
     "macos-toggle-dock",
     "macos-toggle-natural-scrolling",
 ]
-
-[dependencies]
-macos-toggle-natural-scrolling = { path = "./macos-toggle-natural-scrolling" }
-macos-toggle-dark-mode = { path = "./macos-toggle-dark-mode" }
-macos-toggle-dock = { path = "./macos-toggle-dock" }
-macos-resize-dock = { path = "./macos-resize-dock" }
-
-[[bin]]
-name = "macos-toggle-natural-scrolling"
-path = "macos-toggle-natural-scrolling/src/main.rs"
-
-[[bin]]
-name = "macos-toggle-dark-mode"
-path = "macos-toggle-dark-mode/src/main.rs"
-
-[[bin]]
-name = "macos-toggle-dock"
-path = "macos-toggle-dock/src/main.rs"
-
-[[bin]]
-name = "macos-resize-dock"
-path = "macos-resize-dock/src/main.rs"
