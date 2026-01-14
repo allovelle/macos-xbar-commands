@@ -1,18 +1,19 @@
 use std::env;
+use std::fs;
 use std::path::PathBuf;
 use std::process::Command;
 
 fn main()
 {
-    // Only run on macOS
     if env::var("CARGO_CFG_TARGET_OS").unwrap() != "macos"
     {
         return;
     }
 
     let out_dir = PathBuf::from(env::var("OUT_DIR").unwrap());
-    let bin_path = out_dir.join("ToggleNaturalScrolling");
+    let objc_bin = out_dir.join("ToggleNaturalScrolling");
 
+    // Compile ObjC tool
     let status = Command::new("clang")
         .args([
             "-Wall",
@@ -25,7 +26,7 @@ fn main()
             "ApplicationServices",
             "-o",
         ])
-        .arg(&bin_path)
+        .arg(&objc_bin)
         .args([
             "src/bin/macos-toggle-natural-scrolling/objc/Retry.m",
             "src/bin/macos-toggle-natural-scrolling/objc/ProcUtil.m",
@@ -40,7 +41,24 @@ fn main()
         panic!("clang failed building ToggleNaturalScrolling");
     }
 
-    // Re-run build.rs if any ObjC file changes
+    // Determine final binary directory
+    let profile = env::var("PROFILE").unwrap(); // "debug" or "release"
+    let target_dir =
+        env::var("CARGO_TARGET_DIR").unwrap_or_else(|_| "target".into());
+    let final_dir = PathBuf::from(target_dir).join(&profile);
+
+    // Copy ObjC binary into final output directory
+    let final_bin = final_dir.join("ToggleNaturalScrolling");
+    fs::create_dir_all(&final_dir).unwrap();
+    fs::copy(&objc_bin, &final_bin).expect("failed to copy ObjC tool");
+
+    // Expose path to Rust code
+    println!(
+        "cargo:rustc-env=TOGGLE_NATURAL_SCROLLING_BIN={}",
+        final_bin.display()
+    );
+
+    // Rerun triggers
     println!(
         "cargo:rerun-if-changed=src/bin/macos-toggle-natural-scrolling/objc/Main.m"
     );
@@ -55,11 +73,5 @@ fn main()
     );
     println!(
         "cargo:rerun-if-changed=src/bin/macos-toggle-natural-scrolling/objc/Info.plist"
-    );
-
-    // Make the binary available to Rust code (optional)
-    println!(
-        "cargo:rustc-env=TOGGLE_NATURAL_SCROLLING_BIN={}",
-        bin_path.display()
     );
 }
