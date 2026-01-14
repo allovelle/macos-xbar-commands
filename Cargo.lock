@@ -179,15 +179,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df1d3c3b53da64cf5760482273a98e575c651a67eec7f77df96b5b642de8f039"
 
 [[package]]
-name = "macos-natural-scrolling"
-version = "0.1.0"
-dependencies = [
- "cc",
- "tempfile",
- "thiserror",
-]
-
-[[package]]
 name = "macos-resize-dock"
 version = "0.1.0"
 dependencies = [
@@ -211,8 +202,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "macos-toggle-natural-scrolling"
+version = "0.1.0"
+dependencies = [
+ "cc",
+ "tempfile",
+ "thiserror",
+]
+
+[[package]]
 name = "macos-xbar-commands"
 version = "0.1.0"
+dependencies = [
+ "macos-resize-dock",
+ "macos-toggle-dark-mode",
+ "macos-toggle-dock",
+ "macos-toggle-natural-scrolling",
+]
 
 [[package]]
 name = "once_cell"
