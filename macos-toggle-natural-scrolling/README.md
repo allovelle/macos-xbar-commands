@@ -1,6 +1,9 @@
 # macos-natural-scrolling
 
-> Toggles natural scrolling using `osascript` which means it is MacOS only ⚠️
+> Toggles natural scrolling using
+    [ToggleNaturalScrolling](https://github.com/liuqx0717/ToggleNaturalScrolling)
+    allowing for near-instant toggling of natural scrolling for trackpad and
+    mice.
 
 ![Screenshot](Screenshot.png)
 
@@ -10,8 +13,8 @@ Installation:
 $ cargo install --git https://github.com/pebaz/macos-natural-scrolling
 ```
 
-For convenience, use this [Xbar]() script to put a clickable icon in the menu
-bar:
+For convenience, use this [Xbar](https://xbarapp.com)) script to put a clickable
+icon in the menu bar:
 
 ```bash
 #!/usr/bin/env bash
@@ -31,31 +34,3 @@ For convenience, this crate adds a CLI command to do this automatically:
 ```bash
 $ macos-natural-scrolling install
 ```
-
-
-
-
-
-# https://github.com/liuqx0717/ToggleNaturalScrolling
-
-https://github.com/liuqx0717/ToggleNaturalScrolling
-
-
-
-
-
-
-
-
-
-
-Info.plist
-Main.m
-ProcUtil.h
-ProcUtil.m
-README.md
-Retry.h
-Retry.m
-UiUtil.h
-UiUtil.m
-build.sh

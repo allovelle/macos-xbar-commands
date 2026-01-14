@@ -25,7 +25,7 @@ echo "Toggle Dock | shell='$(which macos-toggle-dock)'"
 ```
 
 Put the Xbar script in `~/Library/Application\ Support/xbar/plugins` and don't
-forget to make it executable with `chmod +x toggle-hide-dock.sh`.
+forget to make it executable with `chmod +x macos-toggle-dock.sh`.
 
 For convenience, this crate adds a CLI command to do this automatically:
 
