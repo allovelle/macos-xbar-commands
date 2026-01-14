@@ -1,7 +1,8 @@
 fn main()
 {
     let bin = env!("TOGGLE_NATURAL_SCROLLING_BIN"); // build.rs
+    println!("Running ToggleNaturalScrolling at path: {}", bin);
     std::process::Command::new(bin)
         .status()
-        .expect("failed to run ToggleNaturalScrolling");
+        .expect(":: Could not run ToggleNaturalScrolling");
 }
