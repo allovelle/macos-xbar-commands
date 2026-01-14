@@ -179,33 +179,11 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "df1d3c3b53da64cf5760482273a98e575c651a67eec7f77df96b5b642de8f039"
 
 [[package]]
-name = "macos-resize-dock"
-version = "0.1.0"
-dependencies = [
- "thiserror",
-]
-
-[[package]]
-name = "macos-toggle-dark-mode"
-version = "0.1.0"
-dependencies = [
- "clap",
- "thiserror",
-]
-
-[[package]]
-name = "macos-toggle-dock"
-version = "0.1.0"
-dependencies = [
- "clap",
- "thiserror",
-]
-
-[[package]]
-name = "macos-toggle-natural-scrolling"
+name = "macos-xbar-commands"
 version = "0.1.0"
 dependencies = [
  "cc",
+ "clap",
  "tempfile",
  "thiserror",
 ]
@@ -356,10 +334,3 @@ name = "wit-bindgen"
 version = "0.46.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "f17a85883d4e6d00e8a97c586de764dabcc06133f7f1d55dce5cdc070ad7fe59"
-
-[[package]]
-name = "xbar-all-cmds"
-version = "0.1.0"
-dependencies = [
- "macos-toggle-natural-scrolling",
-]

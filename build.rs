@@ -27,10 +27,10 @@ fn main()
         ])
         .arg(&bin_path)
         .args([
-            "objc/Retry.m",
-            "objc/ProcUtil.m",
-            "objc/UiUtil.m",
-            "objc/Main.m",
+            "src/bin/macos-toggle-natural-scrolling/objc/Retry.m",
+            "src/bin/macos-toggle-natural-scrolling/objc/ProcUtil.m",
+            "src/bin/macos-toggle-natural-scrolling/objc/UiUtil.m",
+            "src/bin/macos-toggle-natural-scrolling/objc/Main.m",
         ])
         .status()
         .expect("failed to invoke clang");
@@ -41,11 +41,21 @@ fn main()
     }
 
     // Re-run build.rs if any ObjC file changes
-    println!("cargo:rerun-if-changed=objc/Main.m");
-    println!("cargo:rerun-if-changed=objc/Retry.m");
-    println!("cargo:rerun-if-changed=objc/ProcUtil.m");
-    println!("cargo:rerun-if-changed=objc/UiUtil.m");
-    println!("cargo:rerun-if-changed=objc/Info.plist");
+    println!(
+        "cargo:rerun-if-changed=src/bin/macos-toggle-natural-scrolling/objc/Main.m"
+    );
+    println!(
+        "cargo:rerun-if-changed=src/bin/macos-toggle-natural-scrolling/objc/Retry.m"
+    );
+    println!(
+        "cargo:rerun-if-changed=src/bin/macos-toggle-natural-scrolling/objc/ProcUtil.m"
+    );
+    println!(
+        "cargo:rerun-if-changed=src/bin/macos-toggle-natural-scrolling/objc/UiUtil.m"
+    );
+    println!(
+        "cargo:rerun-if-changed=src/bin/macos-toggle-natural-scrolling/objc/Info.plist"
+    );
 
     // Make the binary available to Rust code (optional)
     println!(

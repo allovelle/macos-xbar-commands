@@ -1,9 +1,14 @@
-[workspace]
-resolver = "2"
-members = [
-    "xbar-all-cmds",
-    "macos-resize-dock",
-    "macos-toggle-dark-mode",
-    "macos-toggle-dock",
-    "macos-toggle-natural-scrolling",
-]
+[package]
+name = "macos-xbar-commands"
+version = "0.1.0"
+edition = "2024"
+
+[build-dependencies]
+cc = "1.0"
+
+[target.'cfg(target_os = "macos")'.dependencies]
+tempfile = "3.23.0"
+
+[dependencies]
+thiserror = "2.0.17"
+clap = { version = "4.5", features = ["derive"] }
